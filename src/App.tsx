@@ -1,5 +1,9 @@
 import { useState } from "react";
+import { MdLocalDrink } from "react-icons/md";
+import { IoFastFoodOutline } from "react-icons/io5";
+import { TbMedicineSyrup } from "react-icons/tb";
 import { HorizontalMenu } from "./components/horizontalMenu";
+import mop from "./assets/editedMop.png";
 
 function App() {
   const [status, setStatus] = useState<null>(null);
@@ -15,21 +19,25 @@ function App() {
             name={"Drink"}
             isOpened={openedMenu === "Drink"}
             setOpenedMenu={setOpenedMenu}
+            icon={<MdLocalDrink className="size-full p-4" />}
           />
           <HorizontalMenu
             name={"Feed"}
             isOpened={openedMenu === "Feed"}
             setOpenedMenu={setOpenedMenu}
+            icon={<IoFastFoodOutline className="size-full p-4" />}
           />
           <HorizontalMenu
             name={"Cure"}
             isOpened={openedMenu === "Cure"}
             setOpenedMenu={setOpenedMenu}
+            icon={<TbMedicineSyrup className="size-full p-4" />}
           />
           <HorizontalMenu
             name={"Clean"}
             isOpened={openedMenu === "Clean"}
             setOpenedMenu={setOpenedMenu}
+            icon={<img src={mop} className="size-full p-4" />}
           />
         </div>
       </div>
