@@ -3,7 +3,7 @@ import { MdLocalDrink } from "react-icons/md";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { TbMedicineSyrup } from "react-icons/tb";
 import { HorizontalMenu } from "./components/horizontalMenu";
-import mop from "./assets/editedMop.png";
+import mop from "./assets/wmop.png";
 
 function App() {
   const [status, setStatus] = useState<null>(null);
