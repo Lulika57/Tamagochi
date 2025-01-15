@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { MdLocalDrink } from "react-icons/md";
 import { TbMedicineSyrup } from "react-icons/tb";
@@ -16,17 +16,6 @@ function App() {
   const [openedMenu, setOpenedMenu] = useState<string | null>(null);
   const [isDay, setIsDay] = useState<boolean>(true);
   const [status, setStatus] = useState<string[]>([]);
-
-  useEffect(() => {
-    const newStatus: string[] = [];
-
-    if (thirst <= 5) newStatus.push("Thirsty");
-    if (hunger <= 5) newStatus.push("Hungry");
-    if (health <= 5) newStatus.push("Sick");
-    if (cleanliness <= 5) newStatus.push("Dirty");
-
-    setStatus(newStatus);
-  }, [thirst, hunger, health, cleanliness]);
 
   return (
     <div className="w-screen flex justify-center gap-4">
@@ -65,10 +54,15 @@ function App() {
 
       <DayCycler setIsDay={setIsDay} />
       <HappinessTracker
+        thirst={thirst}
         setThirst={setThirst}
+        hunger={hunger}
         setHunger={setHunger}
+        health={health}
         setHealth={setHealth}
+        cleanliness={cleanliness}
         setCleanliness={setCleanliness}
+        setStatus={setStatus}
       />
     </div>
   );
