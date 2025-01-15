@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
+import { msPerMin } from "../constants/constants";
 
 type props = {
   setThirst: Dispatch<SetStateAction<number>>;
@@ -13,8 +14,6 @@ export const HappinessTracker = ({
   setHealth,
   setCleanliness,
 }: props) => {
-  const msPerMin = 60000;
-
   useEffect(() => {
     const thirstTimer = setInterval(
       () => shouldDecrease() && setThirst((prev) => prev - 1),
