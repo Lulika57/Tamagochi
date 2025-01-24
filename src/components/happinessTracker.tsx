@@ -1,19 +1,39 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
+import { msPerMin } from "../constants/constants";
 
 type props = {
+  thirst: number;
   setThirst: Dispatch<SetStateAction<number>>;
+  hunger: number;
   setHunger: Dispatch<SetStateAction<number>>;
+  health: number;
   setHealth: Dispatch<SetStateAction<number>>;
+  cleanliness: number;
   setCleanliness: Dispatch<SetStateAction<number>>;
+  setStatus:  Dispatch<SetStateAction<string[]>>;
 };
 
 export const HappinessTracker = ({
+  thirst,
   setThirst,
+  hunger,
   setHunger,
+  health,
   setHealth,
+  cleanliness,
   setCleanliness,
+  setStatus,
 }: props) => {
-  const msPerMin = 60000;
+  useEffect(() => {
+    const newStatus: string[] = [];
+
+    if (thirst <= 5) newStatus.push("Thirsty");
+    if (hunger <= 5) newStatus.push("Hungry");
+    if (health <= 5) newStatus.push("Sick");
+    if (cleanliness <= 5) newStatus.push("Dirty");
+
+    setStatus(newStatus);
+  }, [thirst, hunger, health, cleanliness]);
 
   useEffect(() => {
     const thirstTimer = setInterval(
