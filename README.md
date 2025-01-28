@@ -48,3 +48,6 @@ export default tseslint.config({
   },
 })
 ```
+
+To run in network:
+```npm run dev -- --host```
