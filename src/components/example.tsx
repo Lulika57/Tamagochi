@@ -4,5 +4,5 @@ type props = {
 }
 
 export const Example = ({ name }: props) => {
-    
+    return <></>
 }
