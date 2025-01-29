@@ -51,7 +51,7 @@ function App() {
         <div className={cn(isMobile && "")}>
           <div className={cn(isMobile ? "gap-2" : "gap-32", "flex flex-col justify-center")}>
             <div className={cn(isMobile ? "w-24 text-lg text-wrap" : "w-80 text-4xl text-wrap")}>
-              {true ? `Your Pet Is ${status[0]}` : ""}
+              {status.length ? `Your Pet Is ${status[0]}` : ""}
             </div>
             <div className={cn(isMobile ? "gap-1" : "gap-4", "flex flex-col")}>
               <HorizontalMenu
