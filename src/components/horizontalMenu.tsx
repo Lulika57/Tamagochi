@@ -1,4 +1,5 @@
 import { MdLocalDrink } from "react-icons/md";
+import { cn } from "../utils/style";
 
 // Information we want to pass in
 type props = {
@@ -6,6 +7,7 @@ type props = {
   isOpened: boolean;
   setOpenedMenu: any;
   icon: any;
+  isMobile: boolean;
 };
 
 export const HorizontalMenu = ({
@@ -13,6 +15,7 @@ export const HorizontalMenu = ({
   isOpened,
   setOpenedMenu,
   icon,
+  isMobile,
 }: props) => {
   function handleClick() {
     if (isOpened) {
@@ -31,7 +34,7 @@ export const HorizontalMenu = ({
       <button
         onClick={handleClick}
         onBlur={handleBlur}
-        className="h-24 w-24 p-0"
+        className={cn(isMobile ? "h-14 w-14" : "h-24 w-24", "p-0")}
       >
         {icon}
       </button>
