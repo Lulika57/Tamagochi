@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { MdLocalDrink } from "react-icons/md";
 import { TbMedicineSyrup } from "react-icons/tb";
@@ -6,6 +6,7 @@ import mop from "./assets/wmop.png";
 import { DayCycler } from "./components/dayCycler";
 import { HappinessTracker } from "./components/happinessTracker";
 import { HorizontalMenu } from "./components/horizontalMenu";
+import { msPerMin } from "./constants/constants";
 import { cn } from "./utils/style";
 
 function App() {
@@ -17,11 +18,23 @@ function App() {
   const [openedMenu, setOpenedMenu] = useState<string | null>(null);
   const [isDay, setIsDay] = useState<boolean>(true);
   const [status, setStatus] = useState<string[]>([]);
+  const [petIsAsleep, setPetIsAsleep] = useState<boolean>(false);
 
   const [isPortrait, setIsPortrait] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
+  const sleepTimerRef = useRef<number | null>(null);
+
+  function resetSleepTimer() {
+    setPetIsAsleep(false);
+
+    if(sleepTimerRef?.current) { // If we have an active timer
+      clearTimeout(sleepTimerRef.current)
+    }
+
+    sleepTimerRef.current = setTimeout(() => setPetIsAsleep(true), 60 * msPerMin);
+  }
 
   function orientationChangeHandler(event: Event) {
     const type = (event.target as ScreenOrientation).type;
@@ -29,6 +42,16 @@ function App() {
 
     setIsPortrait(isPortrait);
   };
+
+  useEffect(() => {
+    resetSleepTimer();
+
+    return () => {
+      if(sleepTimerRef?.current) {
+        clearTimeout(sleepTimerRef.current)
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
@@ -44,14 +67,15 @@ function App() {
     }
   }, []);
 
+
   return (
-    <div className="w-screen flex justify-center gap-4">
+    <div className="w-screen flex justify-center gap-4" onClick={resetSleepTimer}>
       <div className={cn(isMobile ? "h-[100vh] w-[100vw]" : "h-[95vh] w-[95vh] rounded-lg shadow", "bg-red-500")}></div>
       {isLoaded && !isPortrait && (
         <div className={cn(isMobile && "")}>
           <div className={cn(isMobile ? "gap-2" : "gap-32", "flex flex-col justify-center")}>
             <div className={cn(isMobile ? "w-24 text-lg text-wrap" : "w-80 text-4xl text-wrap")}>
-              {true ? `Your Pet Is ${status[0]}` : ""}
+              {status.length ? `Your Pet Is ${status[0]}` : ""}
             </div>
             <div className={cn(isMobile ? "gap-1" : "gap-4", "flex flex-col")}>
               <HorizontalMenu
