@@ -1,4 +1,3 @@
-import { MdLocalDrink } from "react-icons/md";
 import { cn } from "../utils/style";
 
 // Information we want to pass in
